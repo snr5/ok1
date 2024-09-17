@@ -1,0 +1,262 @@
+{{ define "main" }}
+
+<section class="welcome-area" {{with .Params.slides.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+    <div class="welcome-slides owl-carousel">
+        {{- $slides  := .Params.slides.slide }}
+        {{ range $slides }}
+        <div class="single-welcome-slide">
+            <div class="background-curve">
+                <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="./img/core-img/curve-1.png" alt="">
+            </div>
+            <div class="welcome-content h-100">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+
+                        <div class="col-12 col-md-6">
+                            <div class="welcome-text">
+                                <h2 data-animation="fadeInUp" data-delay="100ms">{{.title | safeHTML }} </h2>
+                                <h5 data-animation="fadeInUp" data-delay="400ms">{{.detail | safeHTML }}</h5>
+                                <a href="{{.buttonlink}}" class="btn uza-btn btn-2" data-animation="fadeInUp"
+                                    data-delay="700ms">{{.buttontext}}</a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="welcome-thumbnail">
+                                <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{.image}}" alt="" data-animation="slideInRight"
+                                    data-delay="400ms">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</section>
+
+{{ if eq .Params.introduction.status "enabled" }}
+<section class="uza-about-us-area" {{with .Params.introduction.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6">
+                <div class="about-us-thumbnail mb-80">
+                    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{.Params.introduction.image}}" alt="">
+
+                    <div class="uza-video-area hi-icon-effect-8">
+                        <a href="{{ .Params.introduction.youtubevideo }}" class="hi-icon video-play-btn"><i
+                                class="fa fa-play" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="about-us-content mb-80">
+                    <h2>{{.Params.introduction.title}}</h2>
+                    <p>{{.Params.introduction.description | safeHTML}}</p>
+                    <a href="{{.Params.introduction.buttonlink}}" class="btn uza-btn btn-2 mt-4"> {{.Params.introduction.buttontext}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-bg-pattern">
+        <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="./img/core-img/curve-2.png" alt="">
+    </div>
+</section>
+{{ end }}
+
+
+{{ $services := site.GetPage "/our-services/" }}
+<section class="uza-services-area section-padding-80-0" {{with .Params.counters.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+
+    <div class="uza-cf-area section-padding-80-0">
+        <div class="container">
+          <div class="row">
+            {{ $counterclass:= .Params.counters.class}}
+            {{- $counters  := .Params.counters.counter }}
+            {{ range $counters }}
+            <div class="{{with $counterclass}} {{.}} {{else}}col-12 col-sm-6 col-lg-3{{end}}">
+              <div class="single-cf-area d-flex align-items-center mb-80">
+                <h2><span class="counter">{{ .count }}</span></h2>
+                <div class="cf-text">
+                  <h6>{{.title | safeHTML}}</h6>
+                </div>
+                <div class="bg-icon"><i class="{{ .icon }}"></i></div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+    </div>
+</section>
+
+<section class="uza-services-area section-padding-80-0" {{with .Params.services.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+    {{ if eq .Params.services.status "enabled" }}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <h2> {{ .Params.services.title }} </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {{ $sclass:= .Params.services.class}}
+            {{ range first .Params.services.limit $services.Pages }}
+                <div class="{{with $sclass}} {{.}} {{else}}col-12 col-lg-4{{end}}">
+                    <div class="single-service-area mb-80">
+                        <div class="service-icon">
+                            <i class="{{ .Params.icon }}"></i>
+                        </div>
+                        <h5>{{ .Params.title_listing_page }}</h5>
+                        <p>{{ .Params.detail_listing_page }}</p>
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    
+
+</section>
+
+{{ if eq .Params.portfolio.status "enabled" }}
+{{ $portfolio := site.GetPage "/portfolio/" }}
+<section class="uza-portfolio-area section-padding-80" {{with .Params.testimonials.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <h2>{{ .Params.portfolio.title }}</h2>
+                    <p>{{ .Params.portfolio.subtitle }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="portfolio-sildes owl-carousel">
+                {{ range first .Params.portfolio.limit $portfolio.Pages }}
+                <div class="single-portfolio-slide">
+                    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{ .Params.image }}" alt="">
+                    <div class="overlay-effect">
+                        <h4>{{ .Params.title_listing_page }}</h4>
+                        <p>{{ .Params.detail_listing_page }}</p>
+                    </div>
+                    <div class="view-more-btn">
+                        <a href="{{ .Permalink }}"><i class="arrow_right"></i></a>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+{{ end }}
+</section>
+<section class="uza-portfolio-area" {{with .Params.testimonials.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+{{ if eq .Params.testimonials.status "enabled" }}
+{{- $testimonials  := .Params.testimonials.testimonial }}
+
+    <div class="clients-feedback-area mt-80 section-padding-80 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="testimonial-slides owl-carousel">
+                        {{ range $testimonials }}
+                            <div class="single-testimonial-slide d-flex align-items-center">
+                                <div class="testimonial-thumbnail">
+                                    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{ .image }}" alt="">
+                                </div>
+                                <div class="testimonial-content">
+                                    <h4>“{{.testimonial | safeHTML }}”</h4>
+                                    <div class="ratings">
+                                        {{ range seq .rating }}
+                                        <i class="icon_star"></i>
+                                        {{ end }}
+                                    </div>
+                                    <div class="author-info">
+                                        <h5>{{ .author }} <span>- {{ .destination }}</span></h5>
+                                    </div>
+                                    <div class="quote-icon"><img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="img/core-img/quote.png" alt=""></div>
+                                </div>
+                            </div>
+                        {{ end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="border-line"></div>
+    </div>
+{{ end }}
+    <div class="portfolio-bg-curve">
+        <img src="./img/core-img/curve-3.png" alt="">
+    </div>
+
+    
+</section>
+
+
+<section class="uza-blog-area"{{with .Params.contact.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+    <div class="blog-bg-curve">
+        <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="./img/core-img/curve-4.png" alt="">
+    </div>
+    {{ if eq .Params.contact.status "enabled" }}
+    <div class="uza-cta-area section-padding-0-80">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-8">
+                    <div class="cta-content mb-80">
+                        <h2>{{ .Params.contact.title }}</h2>
+                        <h6>{{ .Params.contact.description }}</h6>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="cta-content mb-80">
+                        <div class="call-now-btn">
+                            <a href="#"><span>{{ .Params.contact.buttontext }}</span><a href="tel:{{ .Params.contact.contactnum }}">{{ .Params.contact.contactnum }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ end }}
+</section>
+<section class="uza-blog-area" {{with .Params.blogs.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+    {{ if eq .Params.blogs.status "enabled" }}
+    {{ $blogs := site.GetPage "/blogs/" }}
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <h2>{{ .Params.blogs.title }}</h2>
+                    <p>{{ .Params.blogs.subtitle }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {{ $blogclass:= .Params.blog.class}}
+            {{ range first .Params.blogs.limit $blogs.Pages }}
+                <div class="{{with $blogclass}} {{.}} {{else}}col-12 col-lg-4{{end}}">
+                    <div class="single-blog-post bg-img mb-80" style="background-image: url({{ .Params.image }});">
+
+                        <div class="post-content">
+                            <span class="post-date"><span>{{.Date.Format "02"}}</span> {{.Date.Format "January, 2006"}}</span>
+                            <a href="#" class="post-title">{{ .Params.title_listing_page }}</a>
+                            <p>{{ .Params.summary_listing_page }}</p>
+                            <a href="{{.Permalink}}" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+    {{end}}
+</section>
+
+
+{{ end }}

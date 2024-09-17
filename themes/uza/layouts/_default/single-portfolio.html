@@ -1,0 +1,115 @@
+{{ define "main" }}
+
+
+<div class="breadcrumb-area">
+  <div class="container h-100">
+    <div class="row h-100 align-items-end">
+      <div class="col-12">
+        <div class="breadcumb--con">
+          <h2 class="title">Portfolio</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item"><a href="/portfolio">Portfolio</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{ .Params.title_listing_page }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="breadcrumb-bg-curve">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="/img/core-img/curve-5.png" alt="">
+  </div>
+</div>
+
+
+<section class="uza-portfolio-single-area section-padding-80">
+  <div class="container">
+    <div class="row justify-content-between align-items-end">
+      <div class="col-12 col-md-6">
+        <div class="portfolio-details-text">
+          <h2>{{ .Params.title_listing_page }}</h2>
+          <h6>
+            {{ range .Params.projecttypes }} 
+                      {{ . }} 
+            {{ end }}
+          </h6>
+          <p>{{ .Content }}</p>
+        </div>
+      </div>
+      
+      <div class="col-12 col-md-4 col-lg-3">
+        {{ if eq .Params.portfolio_meta.status "enabled" }}
+        <div class="portfolio-meta">
+          {{ if isset .Params.portfolio_meta "client" }}
+          <h6>Client: {{ .Params.portfolio_meta.client }}</h6>
+          {{ end }}
+          {{ if isset .Params.portfolio_meta "date" }}
+          <h6>Date: {{ .Params.portfolio_meta.date }}</h6>
+          {{ end }}
+          {{ if isset .Params.portfolio_meta "location" }}
+          <h6>Location: {{ .Params.portfolio_meta.location }}</h6>
+          {{ end }}
+          {{ if isset .Params.portfolio_meta "author" }}
+          <h6>Author: {{ .Params.portfolio_meta.author }}</h6>
+          {{ end }}
+        </div>
+        {{ end }}
+        {{ partial "socialshare.html" . }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="portfolio-thumbnail mt-80">
+          <figure class="figure">
+            <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{ .Params.image_detail_page }}" class="figure-img img-fluid rounded" alt="{{.Params.alt_txt}}" title="{{with .Params.title_txt}} {{.}} {{else}} {{.Title}} {{end}}">
+            {{with .Params.imagecaption}}<figcaption class="figure-caption">A caption for the above image.</figcaption>{{end}}
+          </figure>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="portfolio-pager mt-80 d-flex align-items-center justify-content-between">
+
+
+            <!-- {{ if .PrevPage }}
+            <a href="{{ .PrevPage.Permalink }}?ref=footer">Next Post <i class="arrow_right"></i></a>
+            {{ end }}
+            <a href="/">Back to home</a>
+            {{ if .NextPage }}
+            <a class="link-reverse" href="{{ .NextPage.Permalink }}?ref=footer">« </a>
+            {{ end }} -->
+
+            {{- $pages := ($.Site.GetPage "section" .Section).Pages.ByParam "weight" }}
+              {{- $.Scratch.Set "curPosition" 0 }}
+              {{- $.Scratch.Set "index" 0 }}
+              {{- range $pages }}
+                {{- if eq $ . }}
+                  {{- $.Scratch.Set "curPosition" ($.Scratch.Get "index") }}
+                {{- end }}
+                {{- $.Scratch.Add "index" 1 }}
+              {{- end }}
+              {{- $next := (index $pages (add ($.Scratch.Get "curPosition") 1)) }}
+              {{- $prev := (index $pages (sub ($.Scratch.Get "curPosition") 1)) }}
+
+              {{- with $prev }}
+              <a href="{{ .Permalink }}"><i class="arrow_left"></i> Previous Post</a>
+              {{- end }}
+
+              {{- with $next }}
+              <a href="{{ .Permalink }}">Next Post <i class="arrow_right"></i></a>
+              {{- end }}
+                          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+{{ end }}

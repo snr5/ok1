@@ -1,0 +1,46 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ .Title }}</title>
+    {{ with .Keywords }}<meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }} {{ end }}{{ $e }}{{ end }}">{{ end }}
+    <meta name="description" content="{{ .Description }}">
+    <link rel="icon" href="{{ .Site.Params.header.favicon }}">
+
+    <meta name="description" content="{{ .Description }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Description }}" />
+    <meta property="og:url" content="/" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta property="og:image" content="{{.Site.BaseURL}}/img/logo/logo.png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ .Title }}" />
+    <meta name="twitter:description" content="{{ .Description }}" />
+    <meta name="twitter:image" content="{{.Site.BaseURL}}/img/logo/logo.png" />
+    {{ if .Site.Params.googleverification }} 
+    <meta name="google-site-verification" content="{{ .Site.Params.googleverification }}" />
+    {{ end }}
+    
+    <link rel="stylesheet" href="/style.css">
+    {{ $googletagmanager :=.Site.Params.googletagmanager }}
+        {{ if $googletagmanager }}
+        <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{{ $googletagmanager }}');</script>
+        <!-- End Google Tag Manager -->
+    {{ end }}
+    {{ $googleAnalytics :=.Site.Params.GoogleAnalytics }}
+        {{ if $googleAnalytics }}
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ $googleAnalytics }}"></script>
+            <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+            gtag('js',new Date());gtag('config',{{ $googleAnalytics }});</script>
+    {{ end }}
+</head>

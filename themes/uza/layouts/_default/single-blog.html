@@ -1,0 +1,94 @@
+{{ define "main" }}
+
+
+<div class="breadcrumb-area">
+  <div class="container h-100">
+    <div class="row h-100 align-items-end">
+      <div class="col-12">
+        <div class="breadcumb--con">
+          <h2 class="title">Blog Single</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item"><a href="/blogs">Blog</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{ .Params.title_listing_page }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="breadcrumb-bg-curve">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="/img/core-img/curve-5.png" alt="">
+  </div>
+</div>
+
+
+<section class="blog-details-area section-padding-80">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="blog-details-content">
+
+          <div class="post-details-text">
+            <div class="row justify-content-center">
+              <div class="col-12 col-lg-10">
+                <div class="post-content text-center mb-50">
+                  <a href="#" class="post-date"><span>{{.Date.Format "02"}}</span> {{.Date.Format "January, 2006"}}</a>
+                  <h2>{{ .Params.title_listing_page }}</h2>
+                </div>
+              </div>
+              <div class="col-12">
+                <figure class="figure">
+                  <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}}  src="{{ .Params.detailpageimage }}" class="figure-img img-fluid rounded" alt="{{.Params.alt_txt}}" title="{{with .Params.title_txt}} {{.}} {{else}} {{.Title}} {{end}}">
+                  {{with .Params.imagecaption}}<figcaption class="figure-caption">A caption for the above image.</figcaption>{{end}}
+                </figure>
+              </div>
+              <div class="col-12 col-lg-10">
+               {{ .Content }}
+
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="post-catagories">
+                    <ul class="d-flex flex-wrap align-items-center">
+                      {{- range ($.GetTerms "categories") }}
+                      <li class="tags">
+                              <a href="{{.Permalink}}" rel="category tag">{{ .LinkTitle }}</a>
+                      </li>
+                      {{end}}
+                    </ul>
+                  </div>
+                  {{ partial "socialshare.html" . }}
+                </div>
+                
+                {{ $related := .Site.RegularPages.Related . | first 2 }}
+                {{ with $related }}
+                <div class="related-news-area">
+                  <h2 class="mb-4">Relatest News</h2>
+                  <div class="row">
+                    {{ range . }}
+                    <div class="col-12 col-lg-6">
+                      <div class="single-blog-post bg-img mb-50" style="background-image: url({{ .Params.image }});">
+                        <div class="post-content">
+                          <span class="post-date"><span>{{.Date.Format "02"}}</span> {{.Date.Format "January, 2006"}}</span>
+                          <a href="{{.Permalink}}" title="{{.Title}}" class="post-title">{{ .Params.title_listing_page }}</a>
+                          <p>{{ .Params.summary_listing_page }}</p>
+                          <a href="{{.Permalink}}" title="{{.Title}}" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    {{ end }}
+                  </div>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{{ end }}

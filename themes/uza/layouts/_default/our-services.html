@@ -1,0 +1,146 @@
+{{ define "main" }}
+
+
+
+<div class="breadcrumb-area">
+  <div class="container h-100">
+    <div class="row h-100 align-items-end">
+      <div class="col-12">
+        <div class="breadcumb--con">
+          <h2 class="title">Services</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Services</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="breadcrumb-bg-curve">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="./img/core-img/curve-5.png" alt="">
+  </div>
+</div>
+
+
+<section class="uza-services-area section-padding-80-0">
+  <div class="container">
+    <div class="row">
+
+      {{ $services := site.GetPage "/our-services/" }}
+      {{ range $services.Pages }}
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="single-service-area mb-80">
+
+          <div class="service-icon">
+            <i class="{{ .Params.icon }}"></i>
+          </div>
+          <h5>{{ .Params.title_listing_page }}</h5>
+          <p>{{ .Params.detail_listing_page }}</p>
+        </div>
+      </div>
+      {{ end }}
+      
+    </div>
+  </div>
+</section>
+
+
+<section class="cta-testimonial-cfa-area">
+
+  <div class="cta-testimonial-cfa-bg-curve">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="./img/core-img/curve-6.png" alt="">
+  </div>
+
+  <div class="container">
+    <div class="border-bottom"></div>
+  </div>
+
+  {{ $home := site.GetPage "/" }}
+  {{ if eq $home.Params.contact.statusservicespage "enabled" }}
+  <div class="uza-cta-area section-padding-80-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-8">
+          <div class="cta-content mb-80">
+            <h2>{{ $home.Params.contact.title }}</h2>
+            <h6>{{ $home.Params.contact.description }}</h6>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="cta-content mb-80">
+            <div class="call-now-btn">
+              <a href="#"><span>{{ $home.Params.contact.buttontext }}</span><a href="tel:{{ .Params.contact.contactnum }}">{{ $home.Params.contact.contactnum }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+
+{{ if eq $home.Params.testimonials.statusservicespage "enabled" }}
+  <div class="clients-feedback-area section-padding-0-80 clearfix">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="testimonial-slides owl-carousel">
+
+            {{- $testimonials  := $home.Params.testimonials.testimonial }}
+            {{ range $testimonials }}
+            <div class="single-testimonial-slide d-flex align-items-center">
+
+              <div class="testimonial-thumbnail">
+                <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{ .image }}" alt="">
+              </div>
+
+              <div class="testimonial-content">
+                <h4>“{{.testimonial | safeHTML }}”</h4>
+
+                <div class="ratings">
+                  {{ range seq .rating }}
+                    <i class="icon_star"></i>
+                  {{ end }}
+                </div>
+
+                <div class="author-info">
+                  <h5>{{ .author }} <span>- {{ .destination }}</span></h5>
+                </div>
+
+                <div class="quote-icon"><img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="img/core-img/quote.png" alt=""></div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}
+
+<div class="uza-cf-area section-padding-80-0">
+    <div class="container">
+      <div class="row">
+        {{ $home := site.GetPage "/" }}
+        {{- $counters  := $home.Params.counters.counter }}
+        {{ range $counters }}
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="single-cf-area d-flex align-items-center mb-80">
+            <h2><span class="counter">{{ .count }}</span></h2>
+            <div class="cf-text">
+              <h6>{{.title | safeHTML}}</h6>
+            </div>
+            <div class="bg-icon"><i class="{{ .icon }}"></i></div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+</div>
+
+</section>
+
+{{ end }}

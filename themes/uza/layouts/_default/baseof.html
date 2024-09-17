@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    {{- partial "head.html" . -}}
+<body>
+    {{ $googletagmanager :=.Site.Params.googletagmanager }}
+        {{ if $googletagmanager }}
+        <!-- Google Tag Manager (noscript) -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $googletagmanager }}"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        {{ end }}
+
+    {{ partial "_header.html" . }}  {{ if eq .Lang "en" }}
+    {{ partial "header.en" . }}  {{ else if eq .Lang "es" }}
+    {{ partial "header.es" . }}  {{ end }}
+
+    {{- block "main" . }}{{- end }}
+
+    {{ $home := site.GetPage "/" }}
+    {{ if eq $home.Params.newsletter.status "enabled" }}
+    <section class="uza-newsletter-area" {{with .Params.newsletter.bgcolor}} style="background-color: {{.}} !important;" {{else}}  {{end}}>
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="nl-content mb-80">
+                        <h2>{{ $home.Params.newsletter.title }}</h2>
+                        <p>{{ $home.Params.newsletter.description }}</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-5">
+                    <div class="nl-form mb-80">
+                        {{ $subscription_form_submission_url :=.Site.Params.subscription_form_submission_url }}
+                        <form method="POST" action="{{ $subscription_form_submission_url }}" onsubmit="subscribe(event,this)">
+                            <input type="email" name="subemail" id="subemail" value="" placeholder="Your Email" required>
+                            <button type="submit">{{ $home.Params.newsletter.buttontext }}</button>
+                        </form>
+                        <div class="title-wrapper has-text-centered" id="successwrapsub" style="margin-top: 2px; display:none;">
+                            
+                            <p style="color: green;" class="subtitle icon-box-title" id="successmsgheadingsub"> <img src="/img/bg-img/checked.png" style="width: 50px;"> {{ .Site.Params.subscription_submission_success_msg }}</p>  
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-line"></div>
+        </div>
+    </section>
+    {{end}}
+
+    {{- partial "footer.html" . -}}
+</body>
+
+</html>

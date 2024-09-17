@@ -1,0 +1,55 @@
+{{ define "main" }}
+
+<div class="breadcrumb-area">
+    <div class="container h-100">
+      <div class="row h-100 align-items-end">
+        <div class="col-12">
+          <div class="breadcumb--con">
+            <h2 class="title">{{ .Title }}</h2>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="/categories"><i class="fa figure-caption"></i> Categories</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="breadcrumb-bg-curve">
+      <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="/img/core-img/curve-5.png" alt="">
+    </div>
+  </div>
+  
+<div class="uza-blog-area section-padding-80">
+    <div class="container">
+      <div class="row">
+        {{ $blogclass:= .Params.class}}
+        {{ $blogs := site.GetPage "/blogs/" }}
+        {{ $data := .Data }}
+        {{ range $data.Pages.ByDate }}
+          <div class="{{with $blogclass}} {{.}} {{else}}col-12 col-lg-4 {{end}}">
+            <div class="single-blog-post bg-img mb-80" style="background-image: url({{ .Params.image }});">
+
+              <div class="post-content">
+                <span class="post-date"><span>{{.Date.Format "02"}}</span> {{.Date.Format "January, 2006"}}</span>
+                <a href="{{.Permalink}}" title="{{.Title}}" lass="post-title">{{ .Params.title_listing_page }}</a>
+                <p>{{ .Params.summary_listing_page }}</p>
+                <a href="{{.Permalink}}" title="{{.Title}}" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
+              </div>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+      <!-- <div class="row">
+        <div class="col-12 text-center">
+          <a href="#" class="btn uza-btn btn-3">Load More</a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+
+{{ end }}

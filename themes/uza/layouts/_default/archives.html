@@ -1,0 +1,67 @@
+{{- define "main" }}
+
+
+
+<div class="breadcrumb-area">
+  <div class="container h-100">
+    <div class="row h-100 align-items-end">
+      <div class="col-12">
+        <div class="breadcumb--con">
+          <h2 class="title">{{.Title}}</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{.Title}}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="breadcrumb-bg-curve">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="/img/core-img/curve-5.png" alt="">
+  </div>
+</div>
+
+
+{{- $pages:= where site.RegularPages "Type" "in" site.Params.mainSections }}
+
+{{- if .Site.Params.ShowAllPagesInArchive }}
+{{- $pages = site.RegularPages }}
+{{- end }}
+{{- range $pages.GroupByPublishDate "2006" }}
+{{- if ne .Key "0001" }}
+<div class="uza-blog-area section-padding-80">
+    <div class="container">
+    <h2 class="mb-4">{{- replace .Key "0001" "" }}<sup class="archive-count"> {{ len .Pages }}</sup></h2>
+    <div class="row">
+      {{- range .Pages.GroupByDate "January" }}
+      <!-- <div class="archive-month">
+        <h3 class="archive-month-header">{{- .Key }}<sup class="archive-count"> {{ len .Pages }}</sup></h3> -->
+        {{- range .Pages }}
+        {{- if eq .Kind "page" }}
+        <div class="col-12 col-lg-4">
+          <div class="single-blog-post bg-img mb-50" style="background-image: url(/img/blogs/3.jpg);">
+            <div class="post-content">
+              <span class="post-date"><span>{{.Date.Format "02"}}</span> {{.Date.Format "January, 2006"}}</span>
+              <a href="{{.Permalink}}" title="{{.Title}}" lass="post-title">{{ .Params.title_listing_page }}</a>
+              <p>{{ .Params.summary_listing_page }}</p>
+              <a href="{{.Permalink}}" title="{{.Title}}" class="read-more-btn">Read More <i
+                  class="arrow_carrot-2right"></i></a>
+            </div>
+          </div>
+        </div>
+        {{ end}}
+        {{- end }}
+      <!-- </div> -->
+      {{- end }}
+
+    </div>
+  </div>
+
+</div>
+{{- end }}
+{{- end }}
+
+{{- end }}{{/* end main */}}

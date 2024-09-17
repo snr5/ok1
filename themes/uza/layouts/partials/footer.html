@@ -1,0 +1,121 @@
+<footer class="footer-area section-padding-80-0">
+    <div class="container">
+        <div class="row justify-content-between">
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="single-footer-widget mb-80">
+
+                    <h4 class="widget-title">Contact Us</h4>
+
+                    <div class="footer-content mb-15">
+                        <a href="tel:{{ .Site.Params.footer.contact.contactnum }}"><h3>{{ .Site.Params.footer.contact.contactnum }}</h3></a>
+                        <p>{{ .Site.Params.footer.contactaddress }}<br>
+                             <a href="mailto:{{ .Site.Params.footer.contact.email }}">{{ .Site.Params.footer.contact.email }}</a>
+                        </p>
+                    </div>
+                    <p class="mb-0">{{ .Site.Params.footer.contact.openinghours | safeHTML  }} </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="single-footer-widget mb-80">
+
+                    <h4 class="widget-title">Quick Link</h4>
+
+                    <nav>
+                        <ul class="our-link">
+                            {{ range .Site.Menus.footerquicklinks }}
+                            <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                            {{ end }}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="single-footer-widget mb-80">
+
+                    <h4 class="widget-title">Resources</h4>
+
+                    <nav>
+                        <ul class="our-link">
+                            {{ range .Site.Menus.footerresources }}
+                            <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                            {{ end }}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="single-footer-widget mb-80">
+
+                    <h4 class="widget-title">About Us</h4>
+                    <p>{{ .Site.Params.footer.aboutus.text }}</p>
+
+                    <div class="copywrite-text mb-30">
+                        
+                    </div>
+
+                    <div class="footer-social-info">
+                        {{ range .Site.Menus.footersocail }}
+                        <a href="{{ .URL }}" target="_blank" class="{{ lower .Name }}" data-toggle="tooltip" data-placement="top" title="{{ .Name }}"><i
+                                class="fa fa-{{ lower .Name }}"></i></a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 30px;">
+
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script> {{ .Site.Params.footer.copyright.text }} 
+            {{ if .Site.Params.footer.copyright.showcolorlib }}
+            | This template is made
+            with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                target="_blank">Colorlib</a>
+            {{ end }}
+        </div>
+    </div>
+</footer>
+<script>
+    {{ $subscription_form_submission_url :=.Site.Params.subscription_form_submission_url }}
+    function subscribe(e,form) {
+      e.preventDefault();
+      document.getElementById('successwrapsub').style.display = 'none';
+      /*fetch(form.action, {method:'post', body: new FormData(form)});
+      console.log('send post asynchronously (AJAX)');*/
+  
+      //var data =  new FormData(form);
+      var subemail = document.getElementById('subemail').value;
+      fetch("{{$subscription_form_submission_url}}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+             email: subemail
+           // data
+          }),
+        })
+          .then(function (response) {
+            console.log(response);
+            document.getElementById('successwrapsub').style.display = 'block';
+            document.getElementById('subemail').value = "";
+          })
+          .catch(function (error) {
+            console.error(error);
+            document.getElementById('successmsgheadingsub').innerHTML = 'SomeThing Went Wrong Please Try Again';
+            document.getElementById('successwrapsub').style.display = 'block';
+          });
+  
+  }
+  </script>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/uza.bundle.js"></script>
+<script src="/js/default-assets/active.js"></script>

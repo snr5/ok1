@@ -1,0 +1,253 @@
+{{ define "main" }}
+
+<div class="breadcrumb-area">
+  <div class="container h-100">
+    <div class="row h-100 align-items-end">
+      <div class="col-12">
+        <div class="breadcumb--con">
+          <h2 class="title">About</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">About</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="breadcrumb-bg-curve">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="/img/core-img/curve-5.png" alt="">
+  </div>
+</div>
+
+{{ if eq .Params.introduction.status "enabled" }}
+<section class="uza-about-us-area section-padding-80">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-6">
+        <div class="about-us-thumbnail mb-80">
+          <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{.Params.introduction.image}}" alt="{{.Params.introduction.alt_txt}}" title="{{with .Params.introduction.title_txt}} {{.}} {{else}} {{.Title}} {{end}}">
+          <div class="uza-video-area hi-icon-effect-8">
+            <a href="{{ .Params.introduction.youtubevideo }}" class="hi-icon video-play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="section-heading mb-5">
+          <h2>{{.Params.introduction.title}}</h2>
+        </div>
+        <div class="about-us-content mb-80">
+          
+          <div class="about-tab-area">
+            <ul class="nav nav-tabs mb-50" id="mona_modelTab" role="tablist">
+              {{- $introduction  := .Params.introduction.tab }}
+              {{ $counter := 0 }}
+              {{ range $introduction }}
+                {{ $counter = add $counter 1 }}
+                {{ if .enabled }}
+                <li class="nav-item">
+                  <a class="nav-link {{ if eq ($counter) 1 }} active {{end}}" id="tab{{ $counter }}" data-toggle="tab" href="#tab-{{ $counter }}" role="tab" aria-controls="tab-{{ $counter }}"
+                    aria-selected="true">{{ .name }} </a>
+                </li>
+                {{end}}
+              {{end}}
+            </ul>
+          </div>
+
+          <div class="about-tab-content">
+            <div class="tab-content" id="mona_modelTabContent">
+              
+              {{ $counter := 0 }}
+              {{ range $introduction }}
+                {{ $counter = add $counter 1 }}
+                {{ if .enabled }}
+                <div class="tab-pane fade show {{ if eq ($counter) 1 }} active {{end}}" id="tab-{{ $counter }}" role="tabpanel" aria-labelledby="tab{{ $counter }}">
+                  <div class="tab-content-text">
+                    {{ .detail | safeHTML }}
+                    <a href="{{ .buttontext }}" class="btn uza-btn mt-30">{{ .buttontext }}</a>
+                  </div>
+                </div>
+                {{end}}
+              {{end}}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-bg-pattern">
+    <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="/img/core-img/curve-2.png" alt="">
+  </div>
+</section>
+{{ end }}
+
+<section class="uza-why-choose-us-area">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-6">
+        <div class="choose-us-content mb-80">
+          <div class="section-heading mb-4">
+            <h2>{{.Params.whychooseusarea.title}}</h2>
+            <p>{{.Params.whychooseusarea.subtitle}}</p>
+          </div>
+          <ul>
+            {{- $list  := .Params.whychooseusarea.list }}
+            {{ range $list }}
+            <li><i class="fa fa-check" aria-hidden="true"></i>{{ .text }}</li>
+            {{end}}
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="choose-us-thumbnail mb-80">
+          
+          <figure class="figure">
+            <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{.Params.whychooseusarea.image}}" class="figure-img img-fluid rounded" alt="{{.Params.whychooseusarea.alt_txt}}" title="{{with .Params.whychooseusarea.title_txt}} {{.}} {{else}} {{.Title}} {{end}}">
+            {{with .Params.whychooseusarea.imagecaption}}<figcaption class="figure-caption">A caption for the above image.</figcaption>{{end}}
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ if eq .Params.teamsection.status "enabled" }}
+<section class="uza-portfolio-area section-padding-80">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12">
+        <div class="section-heading text-center">
+          <h2>{{ .Params.teamsection.title }}</h2>
+          <p>{{ .Params.teamsection.subtitle }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="team-sildes owl-carousel">
+        {{- $team  := .Params.teamsection.team }}
+        {{ range $team }}
+        <div class="single-team-slide">
+          <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{.image}}" alt="{{.alt_txt}}" title="{{with .title_txt}} {{.}} {{else}} {{.Title}} {{end}}">
+          <div class="overlay-effect">
+            <h6>{{.name}}</h6>
+            <h4>{{.role}}</h4>
+            <p>{{ .detail }}</p>
+          </div>
+          
+          <div class="team-social-info">
+            {{ range .social }}
+              
+              <a href="{{.link}}" class="{{.network}}" data-toggle="tooltip" data-placement="top" title="{{.network}}"><i
+                  class="fa fa-{{.network}}"></i></a>
+              
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="border-line mt-80"></div>
+  </div>
+</section>
+{{end}}
+
+{{ $home := site.GetPage "/" }}
+
+{{ if eq $home.Params.contact.statusservicespage "enabled" }}
+<div class="uza-cta-area">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-8">
+        <div class="cta-content mb-80">
+          <h2>{{ $home.Params.contact.title }}</h2>
+          <h6>{{ $home.Params.contact.description }}</h6>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="cta-content mb-80">
+          <div class="call-now-btn">
+            <a href="#"><span>{{ $home.Params.contact.buttontext }}</span><a
+                href="tel:{{ .Params.contact.contactnum }}">{{ $home.Params.contact.contactnum }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+
+
+{{ if eq $home.Params.testimonials.statusservicespage "enabled" }}
+<div class="clients-feedback-area section-padding-0-80 clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="testimonial-slides owl-carousel">
+          {{- $testimonials := $home.Params.testimonials.testimonial }}
+          {{ range $testimonials }}
+          <div class="single-testimonial-slide d-flex align-items-center">
+            <div class="testimonial-thumbnail">
+              <img {{ with .Site.Params.lazyloading.enabled }} loading="lazy" {{end}} src="{{ .image }}" alt="{{.alt_txt}}" title="{{with .title_txt}} {{.}} {{else}} {{.Title}} {{end}}">
+            </div>
+            <div class="testimonial-content">
+              <h4>“{{.testimonial | safeHTML }}”</h4>
+              <div class="ratings">
+                {{ range seq .rating }}
+                <i class="icon_star"></i>
+                {{ end }}
+              </div>
+              <div class="author-info">
+                <h5>{{ .author }} <span>- {{ .destination }}</span></h5>
+              </div>
+              <div class="quote-icon"><img src="/img/core-img/quote.png"></div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+<div class="container">
+  <div class="border-line mt-80"></div>
+</div>
+
+<div class="uza-cf-area section-padding-80-0">
+  <div class="container">
+    <div class="row">
+      {{ $home := site.GetPage "/" }}
+      {{- $counters := $home.Params.counters.counter }}
+      {{ range $counters }}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="single-cf-area d-flex align-items-center mb-80">
+          <h2><span class="counter">{{ .count }}</span></h2>
+          <div class="cf-text">
+            <h6>{{.title | safeHTML}}</h6>
+          </div>
+          <div class="bg-icon"><i class="{{ .icon }}"></i></div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+{{ end }}

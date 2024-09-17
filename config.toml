@@ -1,0 +1,163 @@
+baseURL = "https://lookatmydata.com"
+title = "Title lookatmydata.com"
+theme =  "uza"
+disableHugoGeneratorInject = true
+disableKinds = ["RSS"]
+contentDir = "content"
+
+defaultContentLanguage = "en"
+[languages]
+  [languages.en]
+    title = "English"
+    weight = 1
+
+  [languages.es]
+    title = "Spanish"
+    weight = 2
+  
+
+[taxonomies]
+    tag = 'tags'
+    category = 'categories'    
+    projecttype = 'projecttypes' 
+
+disableKinds = ["categories", "tags", "taxonomy", "taxonomyTerm"]
+
+[minify]
+  disableHTML = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepComments = false
+      keepConditionalComments = false
+      keepDefaultAttrVals = true
+      keepDocumentTags = true
+      keepEndTags = true
+      keepQuotes = false
+      keepSpecialComments = true
+      keepWhitespace = false
+      templateDelims = ['', '']
+    [minify.tdewolff.json]
+      keepNumbers = false
+      precision = 0
+    [minify.tdewolff.svg]
+      keepComments = false
+      precision = 0
+    [minify.tdewolff.xml]
+      keepWhitespace = false
+
+[Params]
+  #googletagmanager = ""
+  #googleAnalytics = ""
+  #googleverification = ""
+  contact_form_submission_url = "https://formspree.io/"
+  contact_form_submission_success_line1 = "Thanks for contacting us!"
+  contact_form_submission_success_line2 = "You Will Hear back from us within the next 24 hours"
+
+  subscription_form_submission_url = "https://formspree.io/"
+  subscription_submission_success_msg = "Thank you for subscribing"
+
+# ======== socail share blogs and portofilo ======== #
+[Params.social.share]
+  facebook = true
+  linkedin = true
+  twitter = true
+  email = true
+
+# ======== logo & favicon ======== #
+[Params.header]
+logo = "/img/logo/logo.png"
+favicon = "/img/favicon/favicon.png"
+
+
+# ======== Get A Quote Menu ======== #
+[Params.get_a_quote_link]
+enabled = true
+text = "Get A Quote"
+link = "#"
+
+
+
+# ======== Footer Contact Us Section ======== #
+[Params.footer.contact]
+  address= "40 Baria Sreet 13/2 NY City, US "
+  email= "teset@gmail.com"
+  contactnum= "(+65) 1234 5678"
+  openinghours= "Mon - Fri: 9:00 - 19:00 <br>Closed on Weekends"
+
+
+# ======== Footer Quick Link Menu ======== #
+
+[[menu.footerquicklinks]]
+  name = "About Us"
+  url = "/"
+  weight = 1
+[[menu.footerquicklinks]]
+  name = "Blog"
+  Identifier = "about"
+  url = "/about"
+  weight = 2
+[[menu.footerquicklinks]]
+  name = "Services"
+  Identifier = "services"
+  url = "/services"
+  weight = 3
+# [[menu.footerquicklinks]]
+#   name = "Portfolio"
+#   Identifier = "portfolio"
+#   url = "/portfolio"
+#   weight = 4
+
+# ======== Footer Resources Menu ======== #
+
+[[menu.footerresources]]
+  name = "Privacy"
+  url = "/"
+  weight = 1
+[[menu.footerresources]]
+  name = "Our Team"
+  Identifier = "about"
+  url = "/about"
+  weight = 2
+[[menu.footerresources]]
+  name = "Contact"
+  Identifier = "services"
+  url = "/services"
+  weight = 3
+
+
+
+
+# ======== Footer About Us Section ======== #
+[Params.footer.aboutus]
+  text= "Integer vehicula mauris libero, at molestie eros imperdiet sit amet."
+
+# ======== Footer Socail Links ======== #
+[[menu.footersocail]]
+  name = "Facebook"
+  url = "https://www.facebook.com/"
+[[menu.footersocail]]
+  name = "Twitter"
+  url = "/"
+[[menu.footersocail]]
+  name = "Pinterest"
+  url = "/"
+[[menu.footersocail]]
+  name = "Instagram"
+  url = "/"
+[[menu.footersocail]]
+  name = "YouTube"
+  url = "/"
+
+# ======== Footer About Us Section ======== #
+[Params.footer.copyright]
+  showcolorlib = true # set false to hide
+  text = 'All rights reserved lookatmydata.com'
+
+
+#
+[Params.lazyloading]
+enabled=true
