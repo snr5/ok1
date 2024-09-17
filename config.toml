@@ -1,5 +1,5 @@
 baseURL = "https://snr5.github.io/ok1/"
-title = "Title lookatmydata.com"
+title = "Title see"
 theme =  "uza"
 disableHugoGeneratorInject = true
 disableKinds = ["RSS"]
