@@ -3,7 +3,7 @@ title = "Title see"
 theme =  "uza"
 disableHugoGeneratorInject = true
 disableKinds = ["RSS"]
-contentDir = "../ok2/content"
+contentDir = "https://github.com/snr5/ok2/content"
 
 defaultContentLanguage = "en"
 [languages]
