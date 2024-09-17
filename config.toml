@@ -3,7 +3,7 @@ title = "Title lookatmydata.com"
 theme =  "uza"
 disableHugoGeneratorInject = true
 disableKinds = ["RSS"]
-contentDir = "content"
+contentDir = "../ok2/content"
 
 defaultContentLanguage = "en"
 [languages]
